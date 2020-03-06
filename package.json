@@ -1,0 +1,35 @@
+{
+  "name": "gatsby-plugin-performance-doctor",
+  "version": "0.0.0",
+  "description": "A utility plugin that help diagnose performance on gatsby sites",
+  "main": "index.js",
+  "author": "Ward Peeters <ward@coding-tech.com>",
+  "license": "MIT",
+  "bin": {
+    "gatsby-performance-doctor": "./cli/bin.js"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^8.1.0",
+    "@types/puppeteer": "^2.0.1",
+    "@types/sade": "^1.6.0",
+    "@types/typescript": "^2.0.0",
+    "gatsby": "^2.19.28",
+    "prettier": "^1.19.1",
+    "typescript": "^3.8.3"
+  },
+  "dependencies": {
+    "cli-table3": "^0.5.1",
+    "fs-extra": "^8.1.0",
+    "got": "^10.6.0",
+    "puppeteer": "^2.1.1",
+    "sade": "^1.7.3"
+  },
+  "prettier": {
+    "singleQuote": true
+  },
+  "files": [
+    "cli/**",
+    "gatsby-node.js",
+    "gatsby-browser.js"
+  ]
+}

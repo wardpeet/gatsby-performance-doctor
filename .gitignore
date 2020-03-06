@@ -1,0 +1,5 @@
+node_modules/
+cli/**/*
+gatsby-node.js
+gatsby-browser.js
+tsconfig.tsbuildinfo
