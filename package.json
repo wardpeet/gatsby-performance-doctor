@@ -1,6 +1,6 @@
 {
   "name": "gatsby-plugin-performance-doctor",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "A utility plugin that help diagnose performance on gatsby sites",
   "main": "index.js",
   "author": "Ward Peeters <ward@coding-tech.com>",
