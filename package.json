@@ -8,13 +8,22 @@
   "bin": {
     "gatsby-performance-doctor": "./cli/bin.js"
   },
+  "scripts": {
+    "start": "node ./cli/bin.js",
+    "dev": "ts-node ./src/cli/bin.ts",
+    "build": "yarn clean && tsc -p .",
+    "clean": "del-cli \"cli/**/*\" gatsby-node.js gatsby-browser.js tsconfig.tsbuildinfo",
+    "prepack": "yarn build"
+  },
   "devDependencies": {
     "@types/fs-extra": "^8.1.0",
     "@types/puppeteer": "^2.0.1",
     "@types/sade": "^1.6.0",
     "@types/typescript": "^2.0.0",
+    "del-cli": "^3.0.0",
     "gatsby": "^2.19.28",
     "prettier": "^1.19.1",
+    "ts-node": "^8.6.2",
     "typescript": "^3.8.3"
   },
   "dependencies": {
