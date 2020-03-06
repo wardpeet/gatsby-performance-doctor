@@ -1,5 +1,6 @@
 import { URL } from 'url';
 import puppeteer from 'puppeteer';
+import * as nodePath from 'path';
 
 declare global {
   interface Window {
@@ -57,7 +58,7 @@ async function navigateToPageAndgetMetrics({
 
   await page.evaluateOnNewDocument(observePaintTimings);
 
-  await page.goto(`${origin}/${path}`, {
+  await page.goto(nodePath.posix.join(origin, path), {
     waitUntil: 'networkidle0'
   });
 
