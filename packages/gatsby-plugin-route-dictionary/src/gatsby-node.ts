@@ -10,7 +10,7 @@ export const onPostBuild: GatsbyNode['onPostBuild'] = async ({ store }) => {
     components: Array<{ pages: Set<any>; componentPath: string }>;
     program: { directory: string };
   } = store.getState();
-  const fpath = path.join(program.directory, 'public', '_componentRoutes.json');
+  const fpath = path.join(program.directory, 'public', '_routes.json');
 
   const arr: Array<{ component: string; pages: Array<any> }> = [];
   components.forEach(value => {
@@ -24,7 +24,7 @@ export const onPostBuild: GatsbyNode['onPostBuild'] = async ({ store }) => {
     fpath,
     JSON.stringify(
       {
-        components: arr
+        routes: arr
       },
       null,
       2

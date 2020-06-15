@@ -1,0 +1,8 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "include": ["./src/gatsby-node.ts", "./src/index.ts"],
+  "exclude": [],
+  "compilerOptions": {
+    "outDir": "."
+  }
+}

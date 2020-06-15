@@ -45,32 +45,54 @@ export const getMetrics = async (url: string, browser: puppeteer.Browser) => {
   };
 };
 
-async function navigateToPageAndgetMetrics({
-  origin,
-  path,
-  browser
-}: {
-  origin: string;
-  path: string;
-  browser: puppeteer.Browser;
-}) {
-  const page = await browser.newPage();
+async function navigateToPageAndgetMetrics(
+  {
+    origin,
+    path,
+    browser
+  }: {
+    origin: string;
+    path: string;
+    browser: puppeteer.Browser;
+  },
+  retry = 0
+): Promise<RawMetrics> {
+  try {
+    const page = await browser.newPage();
 
-  await page.evaluateOnNewDocument(observePaintTimings);
+    await page.evaluateOnNewDocument(observePaintTimings);
 
-  await page.goto(nodePath.posix.join(origin, path), {
-    waitUntil: 'networkidle0'
-  });
+    await page.goto(nodePath.posix.join(origin, path), {
+      waitUntil: 'networkidle0'
+    });
 
-  const resourceData = await page.evaluate(getResourceData);
-  const paintTimings = await page.evaluate(() => {
-    return window.___timings;
-  });
+    const resourceData = await page.evaluate(getResourceData);
+    const paintTimings = await page.evaluate(() => {
+      return window.___timings;
+    });
 
-  return {
-    resources: resourceData,
-    timings: paintTimings
-  };
+    await page.close();
+
+    return {
+      resources: resourceData,
+      timings: paintTimings
+    };
+  } catch (err) {
+    if (retry === 0) {
+      return navigateToPageAndgetMetrics(
+        {
+          origin,
+          path,
+          browser
+        },
+        retry + 1
+      );
+    }
+
+    console.log(origin, path, retry);
+
+    throw err;
+  }
 }
 
 /**

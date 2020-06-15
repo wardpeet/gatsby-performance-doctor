@@ -1,5 +1,5 @@
 node_modules/
-cli/**/*
-gatsby-node.js
-gatsby-browser.js
+**/*.js
+!packages/cli
 tsconfig.tsbuildinfo
+*.tgz

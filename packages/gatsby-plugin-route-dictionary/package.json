@@ -1,0 +1,25 @@
+{
+  "name": "gatsby-plugin-route-dictionary",
+  "version": "0.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "fs-extra": "^9.0.1"
+  },
+  "scripts": {
+    "clean": "del-cli index.js gatsby-node.js tsconfig.tsbuildinfo",
+    "build": "npm run clean && tsc -p ."
+  },
+  "files": [
+    "index.js",
+    "gatsby-node.js"
+  ],
+  "devDependencies": {
+    "@types/fs-extra": "^8.1.0",
+    "@types/react-dom": "^16.9.8",
+    "gatsby": "2.22.12"
+  },
+  "np": {
+    "yarn": true
+  }
+}
