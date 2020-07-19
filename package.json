@@ -16,6 +16,7 @@
     "singleQuote": true
   },
   "workspaces": [
-    "packages/gatsby-plugin-route-dictionary"
+    "packages/gatsby-plugin-route-dictionary",
+    "packages/cli"
   ]
 }

@@ -1,5 +1,5 @@
 import { URL } from 'url';
-import puppeteer from 'puppeteer';
+import * as puppeteer from 'puppeteer';
 import * as nodePath from 'path';
 
 declare global {
@@ -57,9 +57,8 @@ async function navigateToPageAndgetMetrics(
   },
   retry = 0
 ): Promise<RawMetrics> {
+  const page = await browser.newPage();
   try {
-    const page = await browser.newPage();
-
     await page.evaluateOnNewDocument(observePaintTimings);
 
     await page.goto(nodePath.posix.join(origin, path), {
@@ -78,7 +77,10 @@ async function navigateToPageAndgetMetrics(
       timings: paintTimings
     };
   } catch (err) {
-    if (retry === 0) {
+    try {
+      await page.close();
+    } catch (err) {}
+    if (retry < 3) {
       return navigateToPageAndgetMetrics(
         {
           origin,
@@ -89,9 +91,17 @@ async function navigateToPageAndgetMetrics(
       );
     }
 
+    console.log('===');
     console.log(origin, path, retry);
 
-    throw err;
+    return {
+      resources: [],
+      timings: {
+        'largest-contentful-paint': 0,
+        'first-paint': 0,
+        'first-contentful-paint': 0
+      }
+    };
   }
 }
 

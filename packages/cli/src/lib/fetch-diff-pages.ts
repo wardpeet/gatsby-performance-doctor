@@ -2,22 +2,22 @@ import got from 'got';
 import * as path from 'path';
 
 interface ComponentRoutes {
-  components: Array<{
+  routes: Array<{
     component: string;
     pages: Array<string>;
   }>;
 }
 
-export const fetchDiffPages = async (origin: string) => {
-  try {
-    const componentRoutes: ComponentRoutes = await got
-      .get(path.posix.join(origin, '_componentRoutes.json'))
-      .json();
+export const fetchDiffPages = async (origin: string, routes?: string) => {
+  const routesUrl = routes ?? path.posix.join(origin, '_routes.json');
 
-    return componentRoutes.components.map(component => component.pages[0]);
+  try {
+    const componentRoutes: ComponentRoutes = await got.get(routesUrl).json();
+
+    return componentRoutes.routes.map(component => component.pages[0]);
   } catch (err) {
     throw new Error(
-      "Site does not have _componentRoutes.json, gatsby-plugin-performance-doctor wasn't installed"
+      "Site does not have _routes.json, gatsby-plugin-performance-doctor wasn't installed"
     );
   }
 };

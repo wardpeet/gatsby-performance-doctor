@@ -1,6 +1,6 @@
-import puppeteer from 'puppeteer';
+import * as puppeteer from 'puppeteer';
 import * as path from 'path';
-import Table from 'cli-table3';
+import * as Table from 'cli-table3';
 import { fetchDiffPages } from '../lib/fetch-diff-pages';
 import { getMetrics } from '../lib/get-metrics';
 import { createMetricDataRowFromRaw, formatNumber } from '../lib/utils';
@@ -42,8 +42,12 @@ const showTable = (data: Array<Metrics>) => {
   console.log(table.toString());
 };
 
-export const command = async (originA: string, originB?: string) => {
-  const routes = await fetchDiffPages(originA);
+export const command = async (
+  originA: string,
+  originB?: string,
+  options?: { routes?: string }
+) => {
+  const routes = await fetchDiffPages(originA, options?.routes);
 
   const browser = await puppeteer.launch();
 

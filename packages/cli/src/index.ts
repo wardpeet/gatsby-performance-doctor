@@ -1,4 +1,4 @@
-import sade from 'sade';
+import * as sade from 'sade';
 // @ts-ignore
 import { version } from '../package.json';
 import { command as checkCommand } from './commands/check';
@@ -8,7 +8,11 @@ export const init = () => {
 
   prog
     .version(version)
-    .command('check <origin> [compareOrigin]')
+    .command('size <origin> [compareOrigin]')
+    .option('--routes', 'List of json routes')
+    .action(checkCommand)
+    .command('webvitals <origin> [compareOrigin]')
+    .option('--routes', 'List of json routes')
     .action(checkCommand);
 
   prog.parse(process.argv);
